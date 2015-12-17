@@ -1,9 +1,10 @@
 package linkinglists;
 
+import linkinglists.Link.*;
+
 
 class LinkList1{
-	
-	
+     
 	public Link firstLink; 
 	
 	LinkList1(){
@@ -19,14 +20,30 @@ class LinkList1{
 		
 	}
 	
-	public void insertFirstLink(String input){
-		
-		Link newLink = new Link(input);
+	public void insertFirstLink(int inInt, String input){
+            
+                aLink Obj = new aLink(inInt, input);
+            
+		Link newLink = new Link(Obj);
                 
-		newLink.next = firstLink;
+                Link Temp = new Link(Obj);
+                
+                System.out.println(newLink.next + " " + firstLink + " " + newLink);
+
+                newLink.next = firstLink;
 		
 		firstLink = newLink;
-		
+                
+                System.out.println(newLink.next + " " + firstLink + " " + newLink);
+                
+                while (newLink.next != null) {
+                
+                    newLink.next.Obj.place += 1;
+                    
+                    newLink = newLink.next;
+
+                }
+                
 	}
 	
 	public Link removeFirst(){
@@ -42,6 +59,14 @@ class LinkList1{
 			System.out.println("Empty LinkedList");
 			
 		}
+                
+                while (linkReference.next != null) {
+                
+                    linkReference.next.Obj.place -= 1;
+                    
+                    linkReference = linkReference.next;
+
+                }
 		
 		return linkReference;
 		
@@ -78,7 +103,7 @@ class LinkList1{
 		
 		if(!isEmpty()){
 		
-			while(theLink.input != bookName){
+			while(theLink.Obj.name != bookName){
 			
 				if(theLink.next == null){
 					return null;
@@ -105,10 +130,8 @@ class LinkList1{
 		
 		Link currentLink = firstLink;
 		Link previousLink = firstLink;
-		
-                System.out.println(currentLink + " " + previousLink + " " + firstLink);
-                
-		while(currentLink.input != bookName){
+		                
+		while(currentLink.Obj.name != bookName){
 			
 			if(currentLink.next == null){
 
@@ -166,6 +189,110 @@ class LinkList1{
 		}
                 
 		return currentLink;
+            
+        }
+        
+        public Link removeIndex(int index) {
+            
+                Link linkReference = firstLink;
+                Link currentLink = firstLink;
+		Link previousLink = firstLink;
+		               
+		while(currentLink.Obj.place != index){
+			
+			if(currentLink.next == null){
+
+				
+				return null; 
+				
+			} else {
+
+				
+				previousLink = currentLink; 
+				
+				currentLink = currentLink.next;
+				
+			}
+			
+		}
+		
+		if(currentLink == firstLink){
+			
+			firstLink = firstLink.next;
+			
+		} else {
+			
+			previousLink.next = currentLink.next;
+			
+		}
+                
+                linkReference.Obj.place = 0;
+                
+                while (linkReference.next != null) {
+                
+                    linkReference.next.Obj.place = linkReference.Obj.place + 1;
+                    
+                    linkReference = linkReference.next;
+
+                }
+		
+		return currentLink;
+		
+        }
+        
+        public Link addIndex (String addition, int index) {
+            
+                aLink Obj = new aLink(index, addition);
+            
+                Link linkReference = firstLink;
+                Link currentLink = firstLink;
+		Link previousLink = firstLink;
+		              
+                Link newLink = new Link(Obj);
+                
+                Link Temp = new Link(Obj);
+                
+		
+                
+		while(currentLink.Obj.place != index){
+			
+			if(currentLink.next == null){
+
+				
+				return null; 
+				
+			} else {
+
+				
+				previousLink = currentLink; 
+				
+				currentLink = currentLink.next;
+				
+			}
+			
+		}
+		
+                    System.out.println(newLink.next + " " + currentLink + " " + newLink);
+			
+			newLink.next = currentLink;
+		
+                        currentLink = newLink;
+			
+                        System.out.println(newLink.next + " " + currentLink + " " + newLink);
+
+		
+                
+                linkReference.Obj.place = 0;
+                
+                while (linkReference.next != null) {
+                
+                    linkReference.next.Obj.place = linkReference.Obj.place + 1;
+                    
+                    linkReference = linkReference.next;
+
+                }
+		
+		return currentLink;            
             
         }
 	
