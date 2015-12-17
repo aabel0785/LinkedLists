@@ -4,31 +4,48 @@ import java.util.Scanner;
 public class Link {
 	
         public static boolean OneCh;
-	public String input;
+        static aLink aLink;
+	public String input1;
+        public int inInt;
 	public static int InZero;
-	
 	public Link next; 
 	
-	public Link(String input){
+        public static class aLink {
+            
+            int place;
+            String name;
+
+        public aLink(int place, String name) {
+            this.place = place;
+            this.name = name;
+        }
+            
+        }
+        
+        aLink Obj = new aLink(inInt, input1);
+        
+	public Link(aLink Obj){
 		
-		this.input = input;
-		
+                this.Obj = Obj;
+				
 	}
 	
 	public void display(){
 		
             if (OneCh == true) {
-		System.out.print(input);
+                
+		System.out.print(Obj.name + " " + Obj.place);
+                
             } else {
                 
-                System.out.print(input + ", ");
+                System.out.print(Obj.name + " " + Obj.place + ", ");
                 
             }
 	}
 	
 	public String toString(){
 		
-		return input;
+		return Obj.name;
 		
 	}
 	
@@ -37,21 +54,18 @@ public class Link {
 		LinkList1 theLinkedList = new LinkList1();
                 Scanner sc = new Scanner(System.in);
 		
-		theLinkedList.insertFirstLink("Five");
-                theLinkedList.insertFirstLink("Four");
-		theLinkedList.insertFirstLink("Three");
-		theLinkedList.insertFirstLink("Two");
-		theLinkedList.insertFirstLink("One");
+		theLinkedList.insertFirstLink(0, "Five");
+                theLinkedList.insertFirstLink(0, "Four");
+		theLinkedList.insertFirstLink(0, "Three");
+		theLinkedList.insertFirstLink(0, "Two");
+		theLinkedList.insertFirstLink(0, "One");
                 
-                String test = "One";
-                
-                theLinkedList.removeLink(test);
-                
+                                
                 boolean ExCh = false;
                 while (ExCh == false) {
                 theLinkedList.display();
                 System.out.println("\n 1) Add \n 2) Remove Front \n "
-                        + "3) Remove Last \n 4) Remove Specific \n 5) Exit");
+                        + "3) Remove Last \n 4) Remove Specific \n 5) Remove Index \n 6) Add Index \n 7) Exit");
                 
                     try {
                         
@@ -70,7 +84,7 @@ public class Link {
                         System.out.println("What would you like to add?");
                             String InOne = sc.next();
                             
-                        theLinkedList.insertFirstLink(InOne);
+                        theLinkedList.insertFirstLink(0, InOne);
                         
                     } else if (InZero == 2) {
                         
@@ -89,14 +103,33 @@ public class Link {
                             
                             theLinkedList.removeLink(InFour);
                         
-                    } else if (InZero == 5) {
+                    } else if (InZero == 7) {
                         
                         System.out.println("Goodbye");
                             ExCh = true;
                         
+                    } else if (InZero == 5) {
+                        
+                        System.out.println("What index would you like to remove?");                    
+                            int InFive = sc.nextInt();
+                            
+                        System.out.println(InFive);
+                        
+                        theLinkedList.removeIndex(InFive);
+                        
+                    } else if (InZero == 6) {
+                        
+                        System.out.println("What would you like to add?");
+                            String InSixS = sc.next();
+                            
+                        System.out.println("At what index?");
+                            int InSixI = sc.nextInt();
+                            
+                        theLinkedList.addIndex(InSixS, InSixI);
+                        
                     } else {
                         
-                        System.out.println("ERROR: Invalid Input");                       
+                         System.out.println("ERROR: Invalid Input");   
                         
                     }
                     
