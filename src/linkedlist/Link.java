@@ -1,145 +1,201 @@
 package linkinglists;
-import java.util.Scanner;
 
-public class Link {
-	
-        public static boolean OneCh;
-        static aLink aLink;
-	public String input1;
-        public int inInt;
-	public static int InZero;
-	public Link next; 
-	
-        public static class aLink {
-            
-            int place;
-            String name;
+import linkinglists.Link.*;
 
-        public aLink(int place, String name) {
-            this.place = place;
-            this.name = name;
-        }
-            
-        }
-        
-        aLink Obj = new aLink(inInt, input1);
-        
-	public Link(aLink Obj){
+
+class LinkList1{
+     
+	public Link firstLink; 
+	
+	LinkList1(){
 		
-                this.Obj = Obj;
-				
+		
+		firstLink = null;
+		
+	}
+	
+	public boolean isEmpty(){
+		
+		return(firstLink == null);
+		
+	}
+	
+	public void insertFirstLink(int inInt, String input){
+            
+                aLink Obj = new aLink(inInt, input);
+            
+		Link newLink = new Link(Obj);
+                
+                Link Temp = new Link(Obj);
+
+                newLink.next = firstLink;
+		
+		firstLink = newLink;
+                 
+                while (newLink.next != null) {
+                
+                    newLink.next.Obj.place += 1;
+                    
+                    newLink = newLink.next;
+
+                }
+                
+	}
+	
+	public Link removeFirst(){
+		
+		Link linkReference = firstLink;
+		
+		if(!isEmpty()){
+		
+			firstLink = firstLink.next;
+		
+		} else {
+			
+			System.out.println("Empty LinkedList");
+			
+		}
+                
+                while (linkReference.next != null) {
+                
+                    linkReference.next.Obj.place -= 1;
+                    
+                    linkReference = linkReference.next;
+
+                }
+		
+		return linkReference;
+		
 	}
 	
 	public void display(){
 		
-            if (OneCh == true) {
-                
-		System.out.print(Obj.name + " " + Obj.place);
-                
-            } else {
-                
-                System.out.print(Obj.name + " " + Obj.place + ", ");
-                
-            }
-	}
-	
-	public String toString(){
+		Link theLink = firstLink;
 		
-		return Obj.name;
-		
-	}
-	
-	public static void main(String[] args) {
-		
-		LinkList1 theLinkedList = new LinkList1();
-                Scanner sc = new Scanner(System.in);
-		
-		theLinkedList.insertFirstLink(0, "Five");
-                theLinkedList.insertFirstLink(0, "Four");
-		theLinkedList.insertFirstLink(0, "Three");
-		theLinkedList.insertFirstLink(0, "Two");
-		theLinkedList.insertFirstLink(0, "One");
-                
-                                
-                boolean ExCh = false;
-                while (ExCh == false) {
-                theLinkedList.display();
-                System.out.println("\n 1) Add \n 2) Remove Front \n "
-                        + "3) Remove Last \n 4) Remove Specific \n 5) Remove Index \n 6) Add Index \n 7) Exit");
-                
-                    try {
-                        
-                         InZero = sc.nextInt();
-                         
-                    }    
-                    catch (Exception e) {
-                     
-                        System.out.println("ERROR: Illegal input");
-                        
-                    } finally {
-                                  
-                
-                    if (InZero == 1) {
-                        
-                        System.out.println("What would you like to add?");
-                            String InOne = sc.next();
+		while(theLink != null){
+			
+                        if (theLink.next == null) {
                             
-                        theLinkedList.insertFirstLink(0, InOne);
-                        
-                    } else if (InZero == 2) {
-                        
-                        theLinkedList.removeFirst();
-                        
-                    } else if (InZero == 3) {
-                        
-                        theLinkedList.removeLast();
-                        
-                    } else if (InZero == 4) {
-                        
-                        System.out.println("Which link would you like to remove?");
-                            String InFour = sc.next();
+                            Link.OneCh = true;
                             
-                            System.out.println(InFour);
+                        } else {
                             
-                            theLinkedList.removeLink(InFour);
-                        
-                    } else if (InZero == 7) {
-                        
-                        System.out.println("Goodbye");
-                            ExCh = true;
-                        
-                    } else if (InZero == 5) {
-                        
-                        System.out.println("What index would you like to remove?");                    
-                            int InFive = sc.nextInt();
+                            Link.OneCh = false;
                             
-                        System.out.println(InFive);
-                        
-                        theLinkedList.removeIndex(InFive);
-                        
-                    } else if (InZero == 6) {
-                        
-                        System.out.println("What would you like to add?");
-                            String InSixS = sc.next();
-                            
-                        System.out.println("At what index?");
-                            int InSixI = sc.nextInt();
-                            
-                        theLinkedList.addIndex(InSixS, InSixI);
-                        
-                    } else {
-                        
-                         System.out.println("ERROR: Invalid Input");   
-                        
-                    }
+                        }
                     
-                    }
+			theLink.display();
+			
+			theLink = theLink.next;
+
+			
+		}
+		
+	}
+	
+	public Link find(String bookName){
+		
+		Link theLink = firstLink;
+		
+		if(!isEmpty()){
+		
+			while(theLink.Obj.name != bookName){
+			
+				if(theLink.next == null){
+					return null;
+				
+				} else {
+				
+					theLink = theLink.next;
+				
+				}
+			
+			}
+			
+		} else {
+			
+			System.out.println("Empty LinkedList");
+			
+		}
+		
+		return theLink;
+		
+	}      
+        
+        public Link removeLast() {
+            		
+                Link currentLink = firstLink;
+		Link previousLink = firstLink;
+            
+		while(currentLink.next != null){
+			
+			previousLink = currentLink; 
+				
+                        currentLink = currentLink.next;
+			
+		}
+		
                 
+                if(currentLink == firstLink){
+			
+			firstLink = firstLink.next;
+			
+		} else if (currentLink.next == null) {
+			
+			previousLink.next = currentLink.next;
+			
+		}
+                
+		return currentLink;
+            
+        }
+        
+        public Link removeIndex(int index) {
+            
+                Link linkReference = firstLink;
+                Link currentLink = firstLink;
+		Link previousLink = firstLink;
+		               
+		while(currentLink.Obj.place != index){
+			
+			if(currentLink.next == null){
+
+				
+				return null; 
+				
+			} else {
+
+				
+				previousLink = currentLink; 
+				
+				currentLink = currentLink.next;
+				
+			}
+			
+		}
+		
+		if(currentLink == firstLink){
+			
+			firstLink = firstLink.next;
+			
+		} else {
+			
+			previousLink.next = currentLink.next;
+			
+		}
+                
+                linkReference.Obj.place = 0;
+                
+                while (linkReference.next != null) {
+                
+                    linkReference.next.Obj.place = linkReference.Obj.place + 1;
+                    
+                    linkReference = linkReference.next;
+
                 }
 		
-		System.exit(0);
+		return currentLink;
 		
-		
-	}
-	
+        }
+                
 }
